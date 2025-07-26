@@ -1,4 +1,3 @@
-
 const express = require("express");
 const { chromium } = require("playwright");
 
@@ -11,11 +10,24 @@ app.post("/scrape", async (req, res) => {
 
   let browser;
   try {
-    browser = await chromium.launch({ headless: true });
+    browser = await chromium.launch({
+      headless: true,
+      args: [
+        "--disable-gpu",
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-accelerated-2d-canvas",
+        "--disable-web-security",
+        "--single-process",
+        "--no-zygote"
+      ]
+    });
+
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
 
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(2000); // facultatif
 
     const articleText = await page.evaluate(() => {
       const article = document.querySelector("article");
