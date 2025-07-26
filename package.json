@@ -1,0 +1,13 @@
+{
+  "name": "playwright-scraper-api",
+  "version": "1.0.0",
+  "description": "API to scrape article text using Playwright with Docker",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "playwright": "^1.43.0"
+  }
+}
